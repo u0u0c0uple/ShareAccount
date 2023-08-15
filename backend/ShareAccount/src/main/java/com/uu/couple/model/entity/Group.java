@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @Table(indexes = {
         @Index(name = "idx_location",columnList = "location"),
-        @Index(name = "idx_spend_date",columnList = "spend_date"),
+        @Index(name = "idx_spend_date",columnList = "spend_date")
 })
 @NoArgsConstructor
 @AllArgsConstructor
