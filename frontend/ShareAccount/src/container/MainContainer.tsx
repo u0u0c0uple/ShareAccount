@@ -3,7 +3,9 @@ import MainComponent from "../components/MainComponent";
 
 const MainContainer = () => {
   return (
-    <MainComponent />
+    <div className="w-screen h-screen">
+      <MainComponent />
+    </div>
   )
 }
 
