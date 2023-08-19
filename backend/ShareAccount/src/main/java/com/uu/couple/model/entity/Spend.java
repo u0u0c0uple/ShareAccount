@@ -24,9 +24,9 @@ public class Spend extends Base {
     private String id = UUID.randomUUID().toString();  // UUID 자동 생성
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id", nullable = false)
+    @JoinColumn(name = "place_id", nullable = false)
     @Comment("지출 장소")
-    private Group group;
+    private Place place;
 
     @Column(name = "name", nullable = false)
     @Comment("지출 항목")

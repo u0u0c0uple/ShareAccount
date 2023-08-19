@@ -22,7 +22,7 @@ import java.util.UUID;
 @Builder
 @Getter
 @DynamicInsert
-public class Group extends Base {
+public class Place extends Base {
     @Id
     private String id = UUID.randomUUID().toString();  // UUID 자동 생성
 
@@ -41,7 +41,7 @@ public class Group extends Base {
     @Comment("지출 장소 주소")
     private String location;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "place")
     List<Spend> spendList;
 
     @Column(name = "spend_date", nullable = false)
