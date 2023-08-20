@@ -33,7 +33,7 @@ public class Place extends Base {
         private Category category;
     */
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 20)
     @Comment("지출 장소")
     private String name;
 

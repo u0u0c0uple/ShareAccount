@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("spend")  // http://localhost:8080/spend
 public class SpendController {
@@ -23,7 +25,10 @@ public class SpendController {
     @PostMapping("create")
     public ResponseEntity<?> setSpend(PlaceRequestDto placeRequestDto) {
         try {
-            return ResponseEntity.ok(spendService.setSpend(placeRequestDto));
+            boolean setSpendResponse = spendService.setSpend(placeRequestDto);
+
+            if(!setSpendResponse) throw new SetSpendException();
+            return ResponseEntity.ok(new HashMap<>(){{ put("setSpend", setSpendResponse); }});
         } catch (SetSpendException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

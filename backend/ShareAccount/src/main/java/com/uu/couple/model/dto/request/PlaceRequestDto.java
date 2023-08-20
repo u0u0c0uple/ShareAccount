@@ -1,10 +1,12 @@
 package com.uu.couple.model.dto.request;
 
 import com.uu.couple.model.entity.Spend;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter
 public class PlaceRequestDto {
     String name;  // 지출 장소
     String location;  // 지출 장소 주소
