@@ -1,10 +1,7 @@
 package com.uu.couple.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -21,10 +18,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Getter
-@DynamicInsert
 public class Place extends Base {
     @Id
-    private String id = UUID.randomUUID().toString();  // UUID 자동 생성
+    private String id;
 
     /* 추후 추가 예정
         @ManyToOne(fetch = FetchType.LAZY)
@@ -33,11 +29,11 @@ public class Place extends Base {
         private Category category;
     */
 
-    @Column(name = "name", nullable = false, length = 20)
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(20) CHARACTER SET UTF8")
     @Comment("지출 장소")
     private String name;
 
-    @Column(name = "location", nullable = false)
+    @Column(name = "location", nullable = false, columnDefinition = "VARCHAR(50) CHARACTER SET UTF8")
     @Comment("지출 장소 주소")
     private String location;
 
@@ -47,9 +43,4 @@ public class Place extends Base {
     @Column(name = "spend_date", nullable = false)
     @Comment("지출 날짜")
     private LocalDateTime spendDate;  // YYYY.MM.DD HH:SS
-
-
-
-
-
 }
