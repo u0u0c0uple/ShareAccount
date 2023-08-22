@@ -2,6 +2,8 @@ package com.uu.couple.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.Comment;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,8 +12,10 @@ import java.time.LocalDateTime;
 public class Base {
 
     @Column(name="created_at",updatable = false)
+    @Comment("생성시간")
     private LocalDateTime createdAt;
     @Column(name="updated_at")
+    @Comment("수정시간")
     private LocalDateTime updatedAt;
 
     @PrePersist

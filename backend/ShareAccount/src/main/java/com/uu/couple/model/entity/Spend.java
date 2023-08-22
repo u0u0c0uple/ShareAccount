@@ -21,14 +21,14 @@ import java.util.UUID;
 @DynamicInsert
 public class Spend extends Base {
     @Id
-    private String id = UUID.randomUUID().toString();  // UUID 자동 생성
+    private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id", nullable = false)
+    @JoinColumn(name = "place_id", nullable = false)
     @Comment("지출 장소")
-    private Group group;
+    private Place place;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(20) CHARACTER SET UTF8")
     @Comment("지출 항목")
     private String name;
 
