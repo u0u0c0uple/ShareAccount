@@ -2,10 +2,13 @@ package com.uu.couple.model.service;
 
 import com.uu.couple.model.dto.request.PlaceRequestDto;
 import com.uu.couple.model.dto.request.SpendRequestDto;
+import com.uu.couple.model.dto.response.PlaceResponseDto;
+import com.uu.couple.model.dto.response.SpendResponseDto;
 import com.uu.couple.model.entity.Place;
 import com.uu.couple.model.entity.Spend;
-import com.uu.couple.model.respository.PlaceRepository;
-import com.uu.couple.model.respository.SpendRepository;
+import com.uu.couple.model.repository.PlaceRepository;
+import com.uu.couple.model.repository.SpendRepository;
+import com.uu.couple.util.GetSpendException;
 import com.uu.couple.util.SetSpendException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +17,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -80,5 +82,29 @@ public class SpendServiceImpl implements SpendService {
             e.printStackTrace();
             throw new SetSpendException();
         }
+    }
+
+    public PlaceResponseDto getSpend(String placeId) throws GetSpendException {
+        if(!placeRepository.existsById(placeId)) {
+            throw new GetSpendException("아이디가 존재하지 않습니다.");
+        }
+
+        Place place = placeRepository.findById(placeId).orElseThrow(() -> new GetSpendException("해당 지출 내역이 존재하지 않습니다."));
+
+        List<SpendResponseDto> spendResponseDtoList = new ArrayList<>();
+        for(Spend s : place.getSpendList()) {
+            spendResponseDtoList.add(SpendResponseDto.builder()
+                    .name(s.getName())
+                    .amount(s.getAmount())
+                    .adjust(s.isAdjust())
+                    .build());
+        }
+
+        return PlaceResponseDto.builder()
+                .name(place.getName())
+                .location(place.getLocation())
+                .spendList(spendResponseDtoList)
+                .spendDate(place.getSpendDate())
+                .build();
     }
 }
