@@ -4,11 +4,18 @@ interface spendAccountType {
   name: string;
   locatoin: string;
   spendData: string;
-  spendList: [{
-    name: string;
-    amount: number;
-    userId: string;
-  }]
+  spendList: [
+    {
+      name: string;
+      amount: number;
+      userId: string;
+    },
+  ];
+}
+
+interface spendListType {
+  title: string;
+  price: string;
 }
 
 const AccountCreateComponent = () => {
@@ -16,14 +23,28 @@ const AccountCreateComponent = () => {
     name: '',
     locatoin: '',
     spendData: '',
-    spendList: [{
-      name: '',
-      amount: 0,
-      userId: '',
-    }]
+    spendList: [
+      {
+        name: '',
+        amount: 0,
+        userId: '',
+      },
+    ],
   });
 
+  const [spendTitle, setSpendTitle] = useState('');
+  const [spendPrice, setSpendPrice] = useState('');
+  const [spendList, setSpendList] = useState<spendListType[] | null>(null);
 
+  const addSpendList = () => {
+    if (spendList != null) {
+      const newList = [...spendList, {title: spendTitle, price: spendPrice}];
+      setSpendList([...newList]);
+    } else {
+      const newList = [{title: spendTitle, price: spendPrice}];
+      setSpendList([...newList]);
+    }
+  };
 
   return (
     <div className="flex w-full h-full pt-32">
@@ -68,10 +89,14 @@ const AccountCreateComponent = () => {
                   <input
                     className="w-2/3 input-basic mx-2 ml-0"
                     placeholder="메뉴"
+                    value={spendTitle}
+                    onChange={(e) => setSpendTitle(e.target.value)}
                   />
                   <input
                     className="w-1/3 input-basic mx-2 mr-0"
                     placeholder="가격"
+                    value={spendPrice}
+                    onChange={(e) => setSpendPrice(e.target.value)}
                   />
                   <img
                     className="m-2 my-0 w-10 h-10"
@@ -80,101 +105,35 @@ const AccountCreateComponent = () => {
                   />
                 </div>
               </div>
-              <div className="max-h-48 overflow-y-scroll ">
-                <div className="flex flex-col mr-10">
-                  <label className="input-label">{`-`}</label>
-                  <div className="flex w-full">
-                    <input
-                      className="w-2/3 input-basic mx-2 ml-0"
-                      placeholder="메뉴"
-                    />
-                    <input
-                      className="w-1/3 input-basic mx-2 mr-0"
-                      placeholder="가격"
-                    />
-                    <img
-                      className="m-2 my-0 w-10 h-10"
-                      src={`/src/assets/image/yh_profile_80.png`}
-                      alt="user_proflie"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col mr-10">
-                  <label className="input-label">{`-`}</label>
-                  <div className="flex w-full">
-                    <input
-                      className="w-2/3 input-basic mx-2 ml-0"
-                      placeholder="메뉴"
-                    />
-                    <input
-                      className="w-1/3 input-basic mx-2 mr-0"
-                      placeholder="가격"
-                    />
-                    <img
-                      className="m-2 my-0 w-10 h-10"
-                      src={`/src/assets/image/yh_profile_80.png`}
-                      alt="user_proflie"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col mr-10">
-                  <label className="input-label">{`-`}</label>
-                  <div className="flex w-full">
-                    <input
-                      className="w-2/3 input-basic mx-2 ml-0"
-                      placeholder="메뉴"
-                    />
-                    <input
-                      className="w-1/3 input-basic mx-2 mr-0"
-                      placeholder="가격"
-                    />
-                    <img
-                      className="m-2 my-0 w-10 h-10"
-                      src={`/src/assets/image/yh_profile_80.png`}
-                      alt="user_proflie"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col mr-10">
-                  <label className="input-label">{`-`}</label>
-                  <div className="flex w-full">
-                    <input
-                      className="w-2/3 input-basic mx-2 ml-0"
-                      placeholder="메뉴"
-                    />
-                    <input
-                      className="w-1/3 input-basic mx-2 mr-0"
-                      placeholder="가격"
-                    />
-                    <img
-                      className="m-2 my-0 w-10 h-10"
-                      src={`/src/assets/image/yh_profile_80.png`}
-                      alt="user_proflie"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col mr-10">
-                  <label className="input-label">{`-`}</label>
-                  <div className="flex w-full">
-                    <input
-                      className="w-2/3 input-basic mx-2 ml-0"
-                      placeholder="메뉴"
-                    />
-                    <input
-                      className="w-1/3 input-basic mx-2 mr-0"
-                      placeholder="가격"
-                    />
-                    <img
-                      className="m-2 my-0 w-10 h-10"
-                      src={`/src/assets/image/yh_profile_80.png`}
-                      alt="user_proflie"
-                    />
-                  </div>
-                </div>
+              <div id="addCanvas" className="max-h-48 overflow-y-scroll ">
+                {(spendList && spendList.length > 0) &&
+                  spendList.map((e, i) => (
+                    <div className="flex flex-col mr-10" key={`addmenu_${i}`}>
+                      <label className="input-label">{`--`}</label>
+                      <div className="flex w-full">
+                        <input
+                          className="w-2/3 input-basic mx-2 ml-0"
+                          placeholder={e.title}
+                          value={e.title}
+                          disabled
+                        />
+                        <input
+                          className="w-1/3 input-basic mx-2 mr-0"
+                          placeholder={e.price}
+                          value={e.price}
+                          disabled
+                        />
+                        <img
+                          className="m-2 my-0 w-10 h-10"
+                          src={`/src/assets/image/yh_profile_80.png`}
+                          alt="user_proflie"
+                        />
+                      </div>
+                    </div>
+                  ))}
               </div>
-
               <div className="flex flex-col w-full mt-2 ml-4 text-left text-gray-500 hover:text-black hover:text-bold hover:drop-shadow-lg duration-200">
-                <a>추가하기</a>
+                <a onClick={addSpendList}> + 추가하기</a>
               </div>
             </div>
           </div>
