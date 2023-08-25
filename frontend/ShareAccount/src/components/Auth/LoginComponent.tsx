@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginComponent = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="w-2/3 mx-auto min-w-fit min-h-fit max-h-screen self-center">
       <div className="bg-white text-black w-full rounded-xl drop-shadow-lg p-4 py-8">
@@ -50,17 +53,26 @@ const LoginComponent = () => {
               >
                 회원가입
               </a>
-              <button className="bg-gradient-to-r from-blue-500 to-cyan-500 font-semibold ml-2 w-24 h-10 text-white rounded-md hover:font-extrabold hover:text-slate-200 duration-200">
+              <button
+                className="bg-gradient-to-r from-blue-500 to-cyan-500 font-semibold ml-2 w-24 h-10 text-white rounded-md hover:font-extrabold hover:text-slate-200 duration-200"
+                onClick={() => navigate('/account')}
+              >
                 로그인
               </button>
             </div>
             {/* 아이디 혹은 비밀번호를 잊으셨나요 */}
             <div className="text-gray-400 mt-8 text-sm">
-              <a href="*" className="underline hover:underline-offset-2 hover:font-bold duration-200">
+              <a
+                href="*"
+                className="underline hover:underline-offset-2 hover:font-bold duration-200"
+              >
                 아이디
               </a>{' '}
               혹은{' '}
-              <a href="*" className="underline hover:underline-offset-2 hover:font-bold duration-200">
+              <a
+                href="*"
+                className="underline hover:underline-offset-2 hover:font-bold duration-200"
+              >
                 비밀번호
               </a>
               를 잊으셨나요?
