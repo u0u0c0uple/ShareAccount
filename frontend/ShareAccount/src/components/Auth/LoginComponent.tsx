@@ -25,7 +25,7 @@ const LoginComponent = () => {
                 아이디
               </label>
               <input
-                className="bg-slate-50 rounded-md h-8 shadow-inner"
+                className="input-basic"
                 type="text"
               />
             </div>
@@ -34,7 +34,7 @@ const LoginComponent = () => {
                 비밀번호
               </label>
               <input
-                className="bg-slate-50 rounded-md h-8 shadow-inner"
+                className="input-basic"
                 type="password"
               />
             </div>
@@ -54,7 +54,7 @@ const LoginComponent = () => {
                 회원가입
               </a>
               <button
-                className="bg-gradient-to-r from-blue-500 to-cyan-500 font-semibold ml-2 w-24 h-10 text-white rounded-md hover:font-extrabold hover:text-slate-200 duration-200"
+                className="ml-2 w-24 h-10 btn-basic"
                 onClick={() => navigate('/account')}
               >
                 로그인
