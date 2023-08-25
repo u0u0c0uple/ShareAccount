@@ -18,6 +18,11 @@ interface spendListType {
   price: string;
 }
 
+/**
+ * @todo
+ * 지출 내역 생성할 때 지출 날짜와 지출 장소의 분류로 입력 폼 만들어주기
+ */
+
 const AccountCreateComponent = () => {
   const [account, setAccount] = useState<spendAccountType>({
     name: '',
@@ -49,10 +54,10 @@ const AccountCreateComponent = () => {
   return (
     <div className="flex w-full h-full pt-32">
       {/* Callendar Area */}
-      <div className="w-full basis-1/2 mt-12">
+      <div className="w-full basis-1/2 mt-4">
         <div className="mt-8 max-w-md min-w-[40vw]">TODO callendar</div>
       </div>
-      <div className="w-full basis-1/2 mt-12">
+      <div className="w-full basis-1/2 mt-4">
         {/* Create input Form */}
         <div className="mx-16 mt-8 max-w-sm">
           <p className="text-2xl font-bold text-start m-4 mx-10">

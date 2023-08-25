@@ -11,7 +11,7 @@ const HeaderComponent = () => {
     <div className="flex bg-slate-50 w-screen h-28 fixed drop-shadow-xl z-9">
       {/* section 1 */}
       {/* 작아졌을 때에는 햄버거 버튼 표시 */}
-      <div className="flex w-1/2 max-w-lg min-w-fit h-full basis-1/2">
+      <div className="flex w-1/2 max-w-xl min-w-fit h-full basis-1/2">
         {/* Logo */}
         <div className="w-1/3 h-full basis-1/3 relative">
           <img src="/src/assets/image/logo_icon_80.png" alt="logo"

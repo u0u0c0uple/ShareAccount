@@ -12,7 +12,7 @@ const AccountContainer = () => {
     setRouting(path);
   }, [path]);
   return (
-    <div className="mb-20 w-screen h-screen bg-white">
+    <div className="mb-28 w-full h-screen bg-white">
       <HeaderComponent />
       {routing === "/account" ? (
         <AccountMainComponent />
