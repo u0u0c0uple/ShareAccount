@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CalendarComponent from '../calendar/CalendarComponent';
 
 interface spendAccountType {
   name: string;
@@ -43,10 +44,10 @@ const AccountCreateComponent = () => {
 
   const addSpendList = () => {
     if (spendList != null) {
-      const newList = [...spendList, {title: spendTitle, price: spendPrice}];
+      const newList = [...spendList, { title: spendTitle, price: spendPrice }];
       setSpendList([...newList]);
     } else {
-      const newList = [{title: spendTitle, price: spendPrice}];
+      const newList = [{ title: spendTitle, price: spendPrice }];
       setSpendList([...newList]);
     }
   };
@@ -55,7 +56,9 @@ const AccountCreateComponent = () => {
     <div className="flex w-full h-full pt-32">
       {/* Callendar Area */}
       <div className="w-full basis-1/2 mt-4">
-        <div className="mt-8 max-w-md min-w-[40vw]">TODO callendar</div>
+        <div className="mt-8 max-w-md min-w-[40vw]">
+          <CalendarComponent />
+        </div>
       </div>
       <div className="w-full basis-1/2 mt-4">
         {/* Create input Form */}
@@ -92,13 +95,13 @@ const AccountCreateComponent = () => {
                 <label className="input-label">메뉴</label>
                 <div className="flex w-full">
                   <input
-                    className="w-2/3 input-basic mx-2 ml-0"
-                    placeholder="메뉴"
+                    className="w-2/3 input-basic text-sm mx-1 ml-0"
+                    placeholder="메뉴 이름"
                     value={spendTitle}
                     onChange={(e) => setSpendTitle(e.target.value)}
                   />
                   <input
-                    className="w-1/3 input-basic mx-2 mr-0"
+                    className="w-1/3 input-basic text-sm mx-1 mr-0"
                     placeholder="가격"
                     value={spendPrice}
                     onChange={(e) => setSpendPrice(e.target.value)}
@@ -111,19 +114,20 @@ const AccountCreateComponent = () => {
                 </div>
               </div>
               <div id="addCanvas" className="max-h-48 overflow-y-scroll ">
-                {(spendList && spendList.length > 0) &&
+                {spendList &&
+                  spendList.length > 0 &&
                   spendList.map((e, i) => (
                     <div className="flex flex-col mr-10" key={`addmenu_${i}`}>
-                      <label className="input-label">{`--`}</label>
-                      <div className="flex w-full">
+                      <div className="flex w-full items-center">
+                        <label className="input-label self-center ml-0 mr-1">{`-`}</label>
                         <input
-                          className="w-2/3 input-basic mx-2 ml-0"
+                          className="w-2/3 input-basic mx-1 ml-0"
                           placeholder={e.title}
                           value={e.title}
                           disabled
                         />
                         <input
-                          className="w-1/3 input-basic mx-2 mr-0"
+                          className="w-1/3 input-basic mx-1 mr-0"
                           placeholder={e.price}
                           value={e.price}
                           disabled
@@ -137,7 +141,7 @@ const AccountCreateComponent = () => {
                     </div>
                   ))}
               </div>
-              <div className="flex flex-col w-full mt-2 ml-4 text-left text-gray-500 hover:text-black hover:text-bold hover:drop-shadow-lg duration-200">
+              <div className="flex flex-col w-full mt-2 ml-1 text-left text-gray-500 hover:text-black hover:text-bold hover:drop-shadow-lg duration-200">
                 <a onClick={addSpendList}> + 추가하기</a>
               </div>
             </div>
