@@ -24,19 +24,13 @@ const LoginComponent = () => {
               <label className="text-left text-sm text-gray-600 ml-2">
                 아이디
               </label>
-              <input
-                className="input-basic"
-                type="text"
-              />
+              <input className="input-basic" type="text" />
             </div>
             <div className="flex flex-col my-2">
               <label className="text-left text-sm text-gray-600 ml-2">
                 비밀번호
               </label>
-              <input
-                className="input-basic"
-                type="password"
-              />
+              <input className="input-basic" type="password" />
             </div>
             {/* 아이디 저장 */}
             <div className="text-left ml-2">

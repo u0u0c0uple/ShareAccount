@@ -1,5 +1,6 @@
 import React from 'react';
 import AccountCardComponent from './AccountCardComponent';
+import CalendarComponent from '../calendar/CalendarComponent';
 
 /**
  * @TOdo
@@ -15,13 +16,13 @@ import AccountCardComponent from './AccountCardComponent';
 const AccountMainComponent = () => {
   // const [list, setList] = useState({});
 
-
-
   return (
     <div className="flex w-full h-full pt-32">
       {/* Callendar Area */}
       <div className="w-full basis-1/2 mt-4">
-        <div className="mt-8 max-w-md min-w-[40vw]">TODO callendar</div>
+        <div className="mt-8 max-w-md min-w-[40vw]">
+          <CalendarComponent />
+        </div>
       </div>
       {/* List Area */}
       <div className="w-full basis-1/2 mt-4">
@@ -38,7 +39,7 @@ const AccountMainComponent = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default AccountMainComponent;
