@@ -1,11 +1,13 @@
 package com.uu.couple.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.Comment;
 
 import java.util.List;
 
 @Entity
+@Getter
 public class User {
     @Id
     @Comment("UID")
