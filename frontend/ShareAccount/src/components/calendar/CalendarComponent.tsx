@@ -1,6 +1,94 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const CalendarComponent = () => {
+  const date = new Date();
+  const [now, setNow] = useState(date);
+  const [month, setMonth] = useState<any[]>();
+
+  const nextMonth = () => {
+    const next = now.getMonth() + 1 > 11 ? 0 : now.getMonth() + 1;
+    if (next == 0) {
+      date.setFullYear(now.getFullYear() + 1);
+      date.setMonth(next);
+    } else {
+      date.setFullYear(now.getFullYear());
+      date.setMonth(next);
+    }
+    setNow(date);
+  };
+
+  const prevMonth = () => {
+    const next = now.getMonth() - 1 < 0 ? 11 : now.getMonth() - 1;
+    if (next == 11) {
+      date.setFullYear(now.getFullYear() - 1);
+      date.setMonth(next);
+    } else {
+      date.setFullYear(now.getFullYear());
+      date.setMonth(next);
+    }
+    setNow(date);
+  };
+
+  const getWeeks = (_date: Date) => {
+    const weeks = [];
+    const date = new Date(_date);
+    date.setDate(1);
+
+    let week = [];
+
+    while (true) {
+      week.push(new Date(date));
+
+      date.setDate(date.getDate() + 1);
+
+      if (date.getMonth() != _date.getMonth()) {
+        weeks.push(week);
+        week = [];
+        break;
+      }
+
+      if (date.getDay() == 1) {
+        weeks.push(week);
+        week = [];
+      }
+    }
+
+    return weeks;
+  };
+
+  const makeMonth = (weeks: any[]) => {
+    if (weeks[0].length < 7) {
+      const arr = Array(7 - weeks[0].length).fill(0);
+      const tmp = [...arr, ...weeks[0]];
+      weeks[0] = tmp;
+    }
+
+    if (weeks[weeks.length - 1].length < 7) {
+      const arr = Array(7 - weeks[weeks.length - 1].length).fill(0);
+      const tmp = [...weeks[weeks.length - 1], ...arr];
+      weeks[weeks.length - 1] = tmp;
+    }
+
+    return weeks;
+  };
+
+  const isToday = (day: Date) => {
+    if (day.getDate() != date.getDate()) {
+      return false;
+    } else if (day.getMonth() != date.getMonth()) {
+      return false;
+    } else if (day.getFullYear() != date.getFullYear()) {
+      return false;
+    }
+
+    return true;
+  };
+
+  useEffect(() => {
+    const newMonth = new Date(now);
+    setMonth(makeMonth(getWeeks(newMonth)));
+  }, [now]);
+
   return (
     <div className="flex items-center justify-center py-8 px-4">
       <div className="max-w-sm w-full shadow-lg">
@@ -12,13 +100,14 @@ const CalendarComponent = () => {
               // className="focus:outline-none  text-base font-bold dark:text-gray-100 text-gray-800"
               className="focus:outline-none  text-base font-bold text-gray-800"
             >
-              2023년 8월
+              {now.getFullYear()}년 {now.getMonth() + 1}월
             </span>
             <div className="flex items-center">
               <button
                 aria-label="calendar backward"
                 // className="focus:text-gray-400 hover:text-gray-400 text-gray-800 dark:text-gray-100"
                 className="focus:text-gray-400 hover:text-gray-400 text-gray-800"
+                onClick={prevMonth}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -26,11 +115,11 @@ const CalendarComponent = () => {
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                   <polyline points="15 6 9 12 15 18" />
@@ -40,6 +129,7 @@ const CalendarComponent = () => {
                 aria-label="calendar forward"
                 // className="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800 dark:text-gray-100"
                 className="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800"
+                onClick={nextMonth}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -47,11 +137,11 @@ const CalendarComponent = () => {
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                   <polyline points="9 6 15 12 9 18" />
@@ -103,50 +193,42 @@ const CalendarComponent = () => {
               </thead>
               {/* <tbody className="text-gray-500 dark:text-gray-100"> */}
               <tbody className="text-xs text-gray-500">
-                <tr>
-                  <td className="pt-3">
-                    <div className="px-2 py-2 cursor-pointer flex w-full justify-center"></div>
-                  </td>
-                  <td className="pt-3">
-                    <div className="px-2 py-2 cursor-pointer flex w-full justify-center"></div>
-                  </td>
-                  <td className="pt-3">
-                    <div className="w-full h-full">
-                      <div className="flex items-center justify-center w-full rounded-full cursor-pointer">
-                        <a
-                          role="link"
-                          tabIndex={0}
-                          className="focus:outline-none  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-500 hover:bg-indigo-500 w-4 h-4 flex items-center justify-center font-medium text-white bg-indigo-700 rounded-full"
-                        >
-                          8
-                        </a>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="pt-3">
-                    <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                      <p className=" text-gray-500  font-medium">1</p>
-                    </div>
-                  </td>
-                  <td className="pt-3">
-                    <div className="cursor-pointer flex w-full justify-center">
-                      <div className="bg-gray-400 w-1/2 h-6 rounded-sm"></div>
-                    </div>
-                    <div className="px-2 py-1 cursor-pointer flex w-full justify-center">
-                      <p className="text-gray-500 font-medium">2</p>
-                    </div>
-                  </td>
-                  <td className="pt-3">
-                    <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                      <p className=" text-gray-500 ">3</p>
-                    </div>
-                  </td>
-                  <td className="pt-3">
-                    <div className="px-2 py-2 cursor-pointer flex w-full justify-center">
-                      <p className=" text-gray-500 ">4</p>
-                    </div>
-                  </td>
-                </tr>
+                {month != undefined &&
+                  month.map((week, i) => (
+                    <tr key={`week_${i}`}>
+                      {week.map((day: Date | number, j: number) =>
+                        typeof day == 'number' ? (
+                          <td key={`day_${j}`} className="pt-3"></td>
+                        ) : !isToday(day) ? (
+                          <td key={`day_${j}`} className="pt-3">
+                            <div className="cursor-pointer flex w-full justify-center">
+                              <div className="bg-gray-400 w-1/2 h-6 rounded-sm"></div>
+                            </div>
+                            <div className="px-2 py-1 cursor-pointer flex w-full justify-center">
+                              <p className="text-gray-500 font-medium p-1">
+                                {day.getDate()}
+                              </p>
+                            </div>
+                          </td>
+                        ) : (
+                          <td key={`day_${j}`} className="pt-3">
+                            <div className="cursor-pointer flex w-full justify-center">
+                              <div className="bg-gray-400 w-1/2 h-6 rounded-sm"></div>
+                            </div>
+                            <div className="px-2 py-1 cursor-pointer flex w-full justify-center">
+                              <a
+                                role="link"
+                                tabIndex={0}
+                                className="focus:outline-none  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-500 hover:bg-indigo-500 p-1 flex items-center justify-center font-medium text-white bg-indigo-500 rounded-full"
+                              >
+                                {day.getDate()}
+                              </a>
+                            </div>
+                          </td>
+                        )
+                      )}
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
