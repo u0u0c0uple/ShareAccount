@@ -20,6 +20,7 @@ import java.util.UUID;
 @Getter
 public class Place extends Base {
     @Id
+    @Comment("UID")
     private String id;
 
     /* 추후 추가 예정
@@ -38,7 +39,12 @@ public class Place extends Base {
     private String location;
 
     @OneToMany(mappedBy = "place")
-    List<Spend> spendList;
+    private List<Spend> spendList;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "couple_id", nullable = false)
+    @Comment("커플")
+    private Couple couple;
 
     @Column(name = "spend_date", nullable = false)
     @Comment("지출 날짜")
