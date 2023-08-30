@@ -20,7 +20,7 @@ const AccountMainComponent = () => {
     <div className="flex w-full h-full pt-32">
       {/* Callendar Area */}
       <div className="w-full basis-1/2 mt-4">
-        <div className="mt-8 max-w-md min-w-[40vw]">
+        <div className="mt-8 max-w-xl min-w-[40vw]">
           <CalendarComponent />
         </div>
       </div>
