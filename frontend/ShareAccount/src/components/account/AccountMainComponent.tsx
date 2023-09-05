@@ -2,6 +2,8 @@ import React from 'react';
 import AccountCardComponent from './AccountCardComponent';
 import CalendarComponent from '../calendar/CalendarComponent';
 
+interface CardPropsType {}
+
 /**
  * @TOdo
  * 캘린더 만들고, 지출 내역 리스트 카드 뷰 만들기

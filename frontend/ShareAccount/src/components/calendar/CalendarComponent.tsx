@@ -215,11 +215,11 @@ const CalendarComponent = () => {
                             <div className="cursor-pointer flex w-full justify-center">
                               <div className="bg-gray-400 w-1/2 h-6 rounded-sm"></div>
                             </div>
-                            <div className="px-2 py-1 cursor-pointer flex w-full justify-center">
+                            <div className="px-auto py-1 cursor-pointer flex w-full justify-center">
                               <a
                                 role="link"
                                 tabIndex={0}
-                                className="focus:outline-none  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-500 hover:bg-indigo-500 p-1 flex items-center justify-center font-medium text-white bg-indigo-500 rounded-full"
+                                className="w-1/2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:bg-indigo-500 hover:bg-indigo-500 p-1 flex items-center justify-center font-medium text-white bg-indigo-500 rounded-full"
                               >
                                 {day.getDate()}
                               </a>

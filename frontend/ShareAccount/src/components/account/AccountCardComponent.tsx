@@ -138,7 +138,7 @@ const AccountCardComponent = () => {
                 alt="yh_proflie"
                 className="mx-4 md:w-8 md:h-8"
               />
-              <p className="text-lg text-blue-500 font-semibold">3,500원</p>
+              <p className="text-lg text-blue-500 font-semibold">5,250원</p>
             </div>
           </div>
         </div>
