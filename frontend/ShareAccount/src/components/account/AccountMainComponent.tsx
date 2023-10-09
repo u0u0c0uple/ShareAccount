@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { LabelHTMLAttributes, useEffect, useState } from 'react';
 import AccountCardComponent from './AccountCardComponent';
 import CalendarComponent from '../calendar/CalendarComponent';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -18,6 +18,7 @@ interface spendAccountType {
 }
 
 interface spendListType {
+  index: number;
   title: string;
   price: string;
 }
@@ -40,7 +41,6 @@ const AccountMainComponent = () => {
   const navigate = useNavigate();
   const path = useLocation().pathname;
   const [routing, setRouting] = useState<string>('');
-
   const [account, setAccount] = useState<spendAccountType>({
     name: '',
     locatoin: '',
@@ -57,20 +57,42 @@ const AccountMainComponent = () => {
   const [spendTitle, setSpendTitle] = useState('');
   const [spendPrice, setSpendPrice] = useState('');
   const [spendList, setSpendList] = useState<spendListType[] | null>(null);
-
-  const addSpendList = () => {
-    if (spendList != null) {
-      const newList = [...spendList, { title: spendTitle, price: spendPrice }];
-      setSpendList([...newList]);
-    } else {
-      const newList = [{ title: spendTitle, price: spendPrice }];
-      setSpendList([...newList]);
-    }
-  };
+  const [listIndex, setListIndex] = useState<number>(0);
 
   useEffect(() => {
     setRouting(path);
   }, [path]);
+
+  const addSpendList = () => {
+    if (spendList != null) {
+      const newList = [
+        ...spendList,
+        { index: listIndex + 1, title: spendTitle, price: spendPrice },
+      ];
+      setListIndex(listIndex + 1);
+      setSpendList([...newList]);
+    } else {
+      const newList = [
+        { index: listIndex, title: spendTitle, price: spendPrice },
+      ];
+      setSpendList([...newList]);
+    }
+  };
+
+  const removeSpendList = (e: number) => {
+    if (spendList != null) {
+      let idx = 0;
+      const newList: spendListType[] = spendList
+        .filter((list: spendListType) => list.index !== e)
+        .map((list: spendListType) => ({
+          index: idx++,
+          title: list.title,
+          price: list.price,
+        }));
+
+      setSpendList([...newList]);
+    }
+  };
 
   return (
     <Wrapper>
@@ -162,7 +184,10 @@ const AccountMainComponent = () => {
                           key={`addmenu_${i}`}
                         >
                           <div className="flex w-full items-center">
-                            <label className="input-label self-center ml-0 mr-1">{`-`}</label>
+                            <label
+                              className="input-label self-center ml-0 mr-1"
+                              onClick={() => removeSpendList(e.index)}
+                            >{`-`}</label>
                             <input
                               className="w-2/3 input-basic mx-1 ml-0"
                               placeholder={e.title}
