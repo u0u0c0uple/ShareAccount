@@ -1,5 +1,6 @@
 #root {
   text-align: center;
+  width: 100vw;
 }
 
 // input 태그 자동완성 사용 시 배경색 생기는 거 지우기
@@ -13,4 +14,14 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: white;
+}
+
+// 메뉴 추가 캔버스에서 스크롤 바 없애기
+div {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+div::-webkit-scrollbar {
+  display: none;
 }

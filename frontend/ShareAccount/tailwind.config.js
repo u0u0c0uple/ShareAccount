@@ -8,9 +8,7 @@ export default {
   ],
   theme: {
     extend: {
-      width: {
-        
-      },
+      width: {},
       transitionDuration: {
         slow: '200ms',
         normal: '400ms',
@@ -30,9 +28,6 @@ export default {
     },
   },
   variants: {
-    extend: {
-      
-    },
+    extend: {},
   },
 };
-
